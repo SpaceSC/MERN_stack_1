@@ -11,7 +11,7 @@ function App() {
     fetch('http://localhost:5000/dog')
     .then(res => res.json())
     .then(data => setData(data))
-    .catch(err => console.log(err))
+    .catch(err => setData(null))
   }, [])
 
   const submit = () => {
@@ -27,14 +27,16 @@ function App() {
         input2
       })
     }).then(res => res.json())
-      .then(data => setRes(true))
+      .then(data => setRes(data))
       .catch(err => setRes(false))
   }
+
+  console.log(data);
 
   return (
     <div className="App">
       <header className="App-header">
-        <p>{!data ? "Loading..." : data.message}</p>
+        <p>{!data ? "Loading..." : data.map(res => res.input1)}</p>
 
         <input type="text" onChange={e => setInput1(e.target.value)}/>
         <input type="text" onChange={e => setInput2(e.target.value)}/>

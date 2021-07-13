@@ -33,21 +33,32 @@ app.use(cors({
 }))
 
 // endpoints
-app.get('/dog', (req, res) => {
-  res.json({message: "Res.send working"})
-})
 
-const Dog = require("./models/dog.model");
 
-app.post('/dog', (req, res) => {
-  const dog = new Dog({
-    input1: req.body.input1, 
-    input2: req.body.input2,
-  })
-  dog.save()
-    .then(res.json({message: "Res.send working"}))
-    .catch(err => console.log(err))
-})
+const dogRoutes = require('./routes/dogRoutes')
+
+//routes (now both endpoints look the same, so once is enough)
+app.use('/dog', dogRoutes)
+
+// endpoints before routing
+
+//const Dog = require("./models/dog.model");
+
+// app.get('/dog', (req, res) => {
+//   Dog.find()
+//   .then(dogs => res.json(dogs))
+//   .catch(err => console.log({message: "Res.json error"}))
+// })
+
+// app.post('/dog', (req, res) => {
+//   const dog = new Dog({
+//     input1: req.body.input1, 
+//     input2: req.body.input2,
+//   })
+//   dog.save()
+//     .then(res.json({message: "Res.send working"}))
+//     .catch(err => console.log(err))
+// })
 
 
 app.listen(PORT, () => {
