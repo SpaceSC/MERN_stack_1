@@ -32,6 +32,23 @@ app.use(cors({
   credentials: true
 }))
 
+// endpoints
+app.get('/dog', (req, res) => {
+  res.json({message: "Res.send working"})
+})
+
+const Dog = require("./models/dog.model");
+
+app.post('/dog', (req, res) => {
+  const dog = new Dog({
+    input1: req.body.input1, 
+    input2: req.body.input2,
+  })
+  dog.save()
+    .then(res.json({message: "Res.send working"}))
+    .catch(err => console.log(err))
+})
+
 
 app.listen(PORT, () => {
   console.log(`MERN stack app listening at http://localhost:${PORT}`);
